@@ -1,7 +1,7 @@
 .calc-container {
     display: flex;
+    flex-direction: column;
     align-content: center;
-    justify-content: center;
     border-style: double;
     border-color: black;
     border-radius: 12px;
@@ -10,4 +10,13 @@
     height: 360px;
     margin: 180px auto;
     padding: 12px;
+}
+
+.calc-screen {
+    border: 1px solid gray;
+    border-radius: 8px 8px 0 0;
+    height: 48px;
+    width: 240px;
+    margin-bottom: 24px;
+    background-color: rgba(111, 185, 185, 0.2);
 }
