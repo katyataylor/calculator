@@ -19,13 +19,18 @@ btnContainer.addEventListener('click', (event) => {
       firstNum += buttonText;
       calcScreen.innerText = firstNum;
     } else {
-      secondNum += buttonText;
+      secondNum = buttonText;
       calcScreen.innerText += secondNum;
     }
   
   } else if (buttonText === '=') {
     const finalAnswer = operate();
     calcScreen.innerText = finalAnswer;
+
+    // getting ready for next chain:
+    firstNum = finalAnswer.toString();
+    secondNum = "";
+    operand = "";
 
   } else if (buttonText === '+' || buttonText === '-' || buttonText === '*' || buttonText === '/') {
     operand = buttonText; // stores the operator so the next number clicked goes to secondNum
@@ -37,6 +42,7 @@ btnContainer.addEventListener('click', (event) => {
     operand = "";
     calcScreen.innerText = "0";
   }
+
 });
 
 function operate() {
