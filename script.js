@@ -2,6 +2,43 @@ let firstNum = "";
 let secondNum = "";
 let operand = "";
 
+const btnContainer = document.querySelector('.btn-container');
+let calcScreen = document.querySelector('#result');
+
+btnContainer.addEventListener('click', (event) => {
+  // exit if user clicked empty space between buttons
+  if (event.target.tagName !== 'BUTTON') return;
+
+  let buttonText = event.target.innerText;
+
+  // triage logic
+  if (!isNaN(buttonText)) {
+      
+    // builds first number while no operator is selected
+    if (operand === "") {
+      firstNum += buttonText;
+      calcScreen.innerText = firstNum;
+    } else {
+      secondNum += buttonText;
+      calcScreen.innerText += secondNum;
+    }
+  
+  } else if (buttonText === '=') {
+    const finalAnswer = operate();
+    calcScreen.innerText = finalAnswer;
+
+  } else if (buttonText === '+' || buttonText === '-' || buttonText === '*' || buttonText === '/') {
+    operand = buttonText; // stores the operator so the next number clicked goes to secondNum
+    calcScreen.innerText += buttonText;
+ 
+  } else if (buttonText === 'Clear') {
+    firstNum = "";
+    secondNum = "";
+    operand = "";
+    calcScreen.innerText = "0";
+  }
+});
+
 function operate() {
   let a = Number(firstNum);
   let b = Number(secondNum);
