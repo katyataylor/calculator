@@ -19,13 +19,20 @@
 }
 
 .calc-screen {
-    font-family: 'Calculator', monospace;
     border: 1px solid gray;
     border-radius: 8px 8px 0 0;
     height: 48px;
     width: 240px;
     margin-bottom: 24px;
     background-color: rgba(111, 185, 185, 0.2);
+}
+
+#result {
+    font-family: 'Calculator', monospace;
+    font-size: 36px;
+    font-weight: 600;
+    text-align: right;
+    margin: auto 4px;
 }
 
 .btn-container {
