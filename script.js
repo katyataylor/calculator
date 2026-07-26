@@ -11,36 +11,57 @@ btnContainer.addEventListener('click', (event) => {
 
   let buttonText = event.target.innerText;
 
-  // triage logic
-  if (!isNaN(buttonText)) {
-      
-    // builds first number while no operator is selected
-    if (operand === "") {
-      firstNum += buttonText;
-      calcScreen.innerText = firstNum;
-    } else {
-      secondNum = buttonText;
-      calcScreen.innerText += secondNum;
-    }
+    // triage logic
+    if (!isNaN(buttonText)) {
+        
+      // builds first number while no operator is selected
+      if (operand === "") {
+        firstNum += buttonText;
+        calcScreen.innerText = firstNum;
+      } else {
+        secondNum = buttonText;
+        calcScreen.innerText += secondNum;
+      }
+    
+    } else if (buttonText === '=') {
+      const finalAnswer = operate();
+      calcScreen.innerText = finalAnswer;
+
+      // getting ready for next chain:
+      firstNum = finalAnswer.toString();
+      secondNum = "";
+      operand = "";
+
+    } else if (buttonText === '+' || buttonText === '-' || buttonText === '*' || buttonText === '/') {
+      operand = buttonText; // stores the operator so the next number clicked goes to secondNum
+      calcScreen.innerText += buttonText;
   
-  } else if (buttonText === '=') {
-    const finalAnswer = operate();
-    calcScreen.innerText = finalAnswer;
+    } else if (buttonText === 'Clear') {
+      firstNum = "";
+      secondNum = "";
+      operand = "";
+      calcScreen.innerText = "0";
+    
+    } else if (buttonText === 'Undo') {
+    
+    if (secondNum !== "") {
+      // chop the last character off secondNum
+      secondNum = secondNum.slice(0, -1);
+      calcScreen.innerText = `${firstNum}${operand}${secondNum}`;
+      
+    } else if (operand !== "") {
+      // if undo right after hitting an operator, remove the operator
+      operand = "";
+      calcScreen.innerText = firstNum; // Show the first number again
+      
+    } else if (firstNum !== "") {
+      // chop the last character off firstNum
+      firstNum = firstNum.slice(0, -1);
+      calcScreen.innerText = firstNum;
+      // if user deletes everything, show a 0 instead of a blank screen
+      calcScreen.innerText = firstNum === "" ? "0" : firstNum;
+    }
 
-    // getting ready for next chain:
-    firstNum = finalAnswer.toString();
-    secondNum = "";
-    operand = "";
-
-  } else if (buttonText === '+' || buttonText === '-' || buttonText === '*' || buttonText === '/') {
-    operand = buttonText; // stores the operator so the next number clicked goes to secondNum
-    calcScreen.innerText += buttonText;
- 
-  } else if (buttonText === 'Clear') {
-    firstNum = "";
-    secondNum = "";
-    operand = "";
-    calcScreen.innerText = "0";
   }
 
 });
