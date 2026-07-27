@@ -1,10 +1,27 @@
 let firstNum = "";
 let secondNum = "";
 let operand = "";
+let isPowerOn = false; // calculator starts turned OFF
 
 const btnContainer = document.querySelector('.btn-container');
-let calcScreen = document.querySelector('#result');
+const calcScreen = document.querySelector('#result');
+const powerBtn = document.querySelector('#on-off');
 
+// power toggle
+powerBtn.addEventListener('click', () => {
+    isPowerOn = !isPowerOn; // toggle the state between true and false
+
+    if (!isPowerOn) {
+        expression = "";
+        calcScreen.innerText = ""; // make screen blank
+        calcScreen.classList.add('screen-off'); // for CSS styling
+    } else {
+        calcScreen.innerText = "0";
+        calcScreen.classList.remove('screen-off');
+    }
+});
+
+// main button container listener
 btnContainer.addEventListener('click', (event) => {
   // exit if user clicked empty space between buttons
   if (event.target.tagName !== 'BUTTON') return;
