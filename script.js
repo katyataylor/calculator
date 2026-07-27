@@ -34,7 +34,7 @@ btnContainer.addEventListener('click', (event) => {
       // builds first number while no operator is selected
       if (operand === "") {
         firstNum += buttonText;
-        calcScreen.innerText = firstNum;
+        calcScreen.innerText = `${firstNum}`;
       } else {
         secondNum += buttonText;
         calcScreen.innerText += `${secondNum}`;
