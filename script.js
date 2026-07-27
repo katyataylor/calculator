@@ -20,7 +20,7 @@ btnContainer.addEventListener('click', (event) => {
         calcScreen.innerText = firstNum;
       } else {
         secondNum += buttonText;
-        calcScreen.innerText += `${firstNum}${operand}${secondNum}`;
+        calcScreen.innerText += `${secondNum}`;
       }
     } 
     
