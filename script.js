@@ -73,27 +73,21 @@ btnContainer.addEventListener('click', (event) => {
     }
 }); 
 
+// math logic
 function operate() {
-  let a = Number(firstNum);
-  let b = Number(secondNum);
+    let a = Number(firstNum);
+    let b = Number(secondNum);
 
-  if (operand === "+") {
-     return add(a, b);
-  } else if (operand === "-") {
-    return subtract(a, b);
-  } else if (operand === "*") {
-    return multiply([a, b]);
-  } else if (operand === "/") {
-    return divide(a, b);
-  } else if (operand === "^") {
-    return power(a, b);
-  } else if (operand === "√") {
-    return squareRoot(a);
-  } else if (operand === "*=") {
-    return factorial(a);
-  } else if (operand === "+=") {
-    return sum([a, b]);
-  }
+    switch (operand) {
+        case "+": return a + b;
+        case "-": return a - b;
+        case "*": return a * b;
+        case "/": return b === 0 ? "Error" : a / b; // Avoid division by zero
+        case "^": return Math.pow(a, b);
+        case "√": return Math.sqrt(a);
+        case "!": return factorial(a);
+        default: return a;
+    }
 }
 
 function add(a,b) {
@@ -119,29 +113,28 @@ function divide(a,b) {
   return num;
 }
 
-const power = function(a,b) {
+function power(a,b) {
 	let total = a ** b;
   return total;
-};
+}
 
-const squareRoot = function(a) {
+function squareRoot(a) {
   let total = Math.sqrt(a);
   return total;
 }
 
-const factorial = function(a) {
-	let total = 1;
-  for ( let i = a; i > 1; i--) {
-    total *= i;
-  }
-  return total;
-};
+function factorial(a) {
+    if (a < 0) return "Error";
+    let total = 1;
+    for (let i = a; i > 1; i--) total *= i;
+    return total;
+}
 
-const sum = function(array) {
-	let total = 0;
-  for (let i = 0; i < array.length; i++) {
-    total += array[i];
-  }
-  return total;
-};
+function sum(array) {
+	  let total = 0;
+    for (let i = 0; i < array.length; i++) {
+      total += array[i];
+    }
+    return total;
+}
 
