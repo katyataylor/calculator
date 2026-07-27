@@ -56,37 +56,21 @@ btnContainer.addEventListener('click', (event) => {
       operand = "";
     }  
     
-    else if (buttonText === '+' || buttonText === '-' || buttonText === '*' || buttonText === '/' || buttonText === '*' || buttonText === '(' || buttonText === ')' || buttonText === '^' || buttonText === '√' || buttonText === '.' || buttonText === '%' || buttonText === '!') {
-      operand = buttonText; // stores the operator so the next number clicked goes to secondNum
-      calcScreen.innerText += buttonText;
-    
-    } else if (buttonText === 'Clear') {
-      firstNum = "";
-      secondNum = "";
-      operand = "";
-      calcScreen.innerText = "0";
-      
-    } else if (buttonText === 'Undo') {
-      
-    if (secondNum !== "") {
-      // chop the last character off secondNum
-      secondNum = secondNum.slice(0, -1);
-      calcScreen.innerText = `${firstNum}${operand}${secondNum}`;
-        
-    } else if (operand !== "") {
-      // if undo right after hitting an operator, remove the operator
-      operand = "";
-      calcScreen.innerText = firstNum; // Show the first number again
-        
-    } else if (firstNum !== "") {
-      // chop the last character off firstNum
-      firstNum = firstNum.slice(0, -1);
-      calcScreen.innerText = firstNum;
-      // if user deletes everything, show a 0 instead of a blank screen
-      calcScreen.innerText = firstNum === "" ? "0" : firstNum;
+    // 4. handle Clear & Undo
+   else if (buttonText === 'Clear') {
+        firstNum = ""; secondNum = ""; operand = "";
+        calcScreen.innerText = "0";
+    } 
+    else if (buttonText === 'Undo') {
+        if (secondNum !== "") {
+            secondNum = secondNum.slice(0, -1);
+        } else if (operand !== "") {
+            operand = "";
+        } else if (firstNum !== "") {
+            firstNum = firstNum.slice(0, -1);
+        }
+        calcScreen.innerText = `${firstNum}${operand}${secondNum}` || "0";
     }
-      
-  }
 }); 
 
 function operate() {
