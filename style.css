@@ -55,7 +55,7 @@ button {
     display: flex;
     flex-wrap: wrap;
     gap: 6px;
-    width: fit-content;
+    width: 140px;
 }
 
 .action-btns {
