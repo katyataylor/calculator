@@ -65,3 +65,9 @@ button {
     width: fit-content;
     justify-content: flex-end;
 }
+
+.hero-btns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px; 
+}
