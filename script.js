@@ -117,18 +117,26 @@ btnContainer.addEventListener('click', (event) => {
 function operate() {
     let a = Number(firstNum);
     let b = Number(secondNum);
+    let answer;
 
     switch (operand) {
-        case "+": return a + b;
-        case "-": return a - b;
-        case "*": return a * b;
-        case "/": return b === 0 ? "Error" : a / b; // Avoid division by zero
-        case "^": return Math.pow(a, b);
-        case "√": return Math.sqrt(a);
-        case "!": return factorial(a);
-        case "%": return percentage(a);
-        default: return a;
+        case "+": answer = a + b; break;
+        case "-": answer = a - b; break;
+        case "*": answer = a * b; break;
+        case "/": answer = b === 0 ? "Error" : a / b; break;// Avoid division by zero
+        case "^": answer = Math.pow(a, b); break;
+        case "√": answer = Math.sqrt(a); break;
+        case "!": answer = factorial(a); break;
+        case "%": answer = percentage(a); break;
+        default: answer = a;
     }
+
+    // rounding logic
+    if (typeof answer === 'number') {
+      return Number(answer.toFixed(4));
+    }
+
+    return answer;
 }
 
 function add(a,b) {
