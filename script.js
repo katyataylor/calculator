@@ -13,7 +13,12 @@ powerBtn.addEventListener('click', () => {
     isPowerOn = !isPowerOn; // toggle the state between true and false
 
     if (!isPowerOn) {
-        expression = "";
+        // full hard reset when shutting down
+        firstNum = "";
+        secondNum = "";
+        operand = "";
+        isCalculated = false;
+        
         calcScreen.innerText = ""; // make screen blank
         calcScreen.classList.add('screen-off'); // for CSS styling
     } else {
@@ -26,8 +31,15 @@ powerBtn.addEventListener('click', () => {
 
 // main button container listener
 btnContainer.addEventListener('click', (event) => {
+  // stop immediately if calculator is off
+  if (!isPowerOn) return;
+
   // exit if user clicked empty space between buttons
   if (event.target.tagName !== 'BUTTON') return;
+
+  // ignore power button here so it doesnt trigger number/operator logic
+  if (event.target === powerBtn) return;
+
   let buttonText = event.target.innerText;
 
     // 1.handle numbers & decimals
