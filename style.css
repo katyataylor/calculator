@@ -71,3 +71,7 @@ button {
     flex-wrap: wrap;
     gap: 6px; 
 }
+
+.screen-off {
+    opacity: 0.1; /* Dims the screen element when off */
+}
