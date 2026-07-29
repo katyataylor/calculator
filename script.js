@@ -42,6 +42,14 @@ btnContainer.addEventListener('click', (event) => {
 
   let buttonText = event.target.innerText;
 
+  // pass text to inpur handler
+  handleInput(buttonText);
+});
+
+// Shared input handler for clicks and keyboard
+function handleInput(buttonText) {
+  console.log(`Engine received: ${buttonText}. Current firstNum: ${firstNum}, operand: ${operand}`);
+
     // 1.handle numbers & decimals
     if (!isNaN(buttonText) || buttonText === '.') {
 
@@ -127,7 +135,7 @@ btnContainer.addEventListener('click', (event) => {
     }
 
     adjustFontSize();
-}); 
+} 
 
 // math logic
 function operate() {
@@ -220,3 +228,34 @@ function adjustFontSize() {
         calcScreen.style.fontSize = "2.5rem"; // Default large font (match your CSS)
     }
 }
+
+// global keyboard support
+window.addEventListener('keydown', (event) => {
+    // stop if the calculator is turned off
+    if (!isPowerOn) return;
+
+    let key = event.key;
+
+    console.log("Key pressed:", key); 
+
+    // 1. map keyboard edge-cases to match existing button strings
+    if (key === 'Enter') key = '=';
+    if (key === 'Backspace') key = 'Undo';
+    if (key === 'Escape' || key.toLowerCase() === 'c') key = 'Clear';
+    
+    if (key === '/') key = '/'; // map standard keyboard forward-slash to division
+
+    // 2. validate that the pressed key is something the calculator handles
+    const validInputs = [
+        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.',
+        '+', '-', '*', '/', '^', '√', '!', '%', '=', 'Undo', 'Clear'
+    ];
+
+    if (validInputs.includes(key)) {
+        // prevent default browser behavior (like Enter submitting a form or scrolling)
+        event.preventDefault(); 
+        
+        // send the clean key value to the calculator logic
+        handleInput(key);
+    }
+});
