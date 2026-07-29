@@ -52,6 +52,18 @@ btnContainer.addEventListener('click', (event) => {
     // 2. handle operators
     else if (['+', '-', '*', '/', '^', '√', '!', '%'].includes(buttonText)) {
         isCalculated = false;
+
+        // percentage instant calculation
+        if (buttonText === '%') {
+            if (secondNum !== "") {
+                secondNum = (Number(secondNum) / 100).toString();
+            } else if (firstNum !== "") {
+                firstNum = (Number(firstNum) / 100).toString();
+            }
+            calcScreen.innerText = `${firstNum}${operand}${secondNum}`;
+            return; 
+        }
+
         // when user already has a full equation, evaluate it first before chaining the next operator
         if (firstNum !== "" && operand !== "" && secondNum !== "") {
             firstNum = operate().toString();
@@ -114,6 +126,7 @@ function operate() {
         case "^": return Math.pow(a, b);
         case "√": return Math.sqrt(a);
         case "!": return factorial(a);
+        case "%": return percentage(a);
         default: return a;
     }
 }
@@ -166,3 +179,7 @@ function sum(array) {
     return total;
 }
 
+function percentage(a) {
+    let total = (a / 100);
+    return total;
+}
