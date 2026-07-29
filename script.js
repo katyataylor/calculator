@@ -20,6 +20,8 @@ powerBtn.addEventListener('click', () => {
         calcScreen.innerText = "0";
         calcScreen.classList.remove('screen-off');
     }
+
+    adjustFontSize();
 });
 
 // main button container listener
@@ -111,6 +113,8 @@ btnContainer.addEventListener('click', (event) => {
         }
         calcScreen.innerText = `${firstNum}${operand}${secondNum}` || "0";
     }
+
+    adjustFontSize();
 }); 
 
 // math logic
@@ -190,4 +194,17 @@ function sum(array) {
 function percentage(a) {
     let total = (a / 100);
     return total;
+}
+
+// adjust font size to fit display for large numbers
+function adjustFontSize() {
+    const chars = calcScreen.innerText.length;
+    
+    if (chars > 16) {
+        calcScreen.style.fontSize = "1.2rem"; // Tiny font for huge numbers
+    } else if (chars > 10) {
+        calcScreen.style.fontSize = "1.8rem"; // Medium font
+    } else {
+        calcScreen.style.fontSize = "2.5rem"; // Default large font (match your CSS)
+    }
 }
