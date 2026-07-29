@@ -2,6 +2,7 @@ let firstNum = "";
 let secondNum = "";
 let operand = "";
 let isPowerOn = false; // calculator starts turned OFF
+let isCalculated = false; // tracks if an answer has been calculated 
 
 const btnContainer = document.querySelector('.btn-container');
 const calcScreen = document.querySelector('#result');
@@ -27,22 +28,30 @@ btnContainer.addEventListener('click', (event) => {
   if (event.target.tagName !== 'BUTTON') return;
   let buttonText = event.target.innerText;
 
-    // triage logic
-
     // 1.handle numbers & decimals
     if (!isNaN(buttonText) || buttonText === '.') {
+
+       // clear screen if a new number is pressed right after hitting equals
+      if (isCalculated && operand === "") {
+        firstNum = "";
+        isCalculated = false;
+      }
+
       // builds first number while no operator is selected
       if (operand === "") {
+        if (buttonText === '.' && firstNum.includes('.')) return; // prevents multiple decimals in number
         firstNum += buttonText;
-        calcScreen.innerText = `${firstNum}`;
+        calcScreen.innerText = firstNum;
       } else {
         secondNum += buttonText;
-        calcScreen.innerText += `${secondNum}`;
+        // OVERWRITE the screen with the complete mathematical string
+        calcScreen.innerText = `${firstNum}${operand}${secondNum}`;
       }
     } 
     
     // 2. handle operators
     else if (['+', '-', '*', '/', '^', '√', '!', '%'].includes(buttonText)) {
+        isCalculated = false;
         // when user already has a full equation, evaluate it first before chaining the next operator
         if (firstNum !== "" && operand !== "" && secondNum !== "") {
             firstNum = operate().toString();
@@ -58,6 +67,7 @@ btnContainer.addEventListener('click', (event) => {
             operand = "";
             secondNum = "";
             calcScreen.innerText = firstNum;
+            isCalculated = true;
         }
     } 
 
@@ -71,6 +81,7 @@ btnContainer.addEventListener('click', (event) => {
       firstNum = finalAnswer.toString();
       secondNum = "";
       operand = "";
+      isCalculated = true;
     }  
     
     // 4. handle Clear & Undo
